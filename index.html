@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 💌</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffb6d5, #ffd6e8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Comic Sans MS", cursive;
+  overflow: hidden;
+}
+
+/* ================= AMPL0P ================= */
+.envelope-container {
+  position: absolute;
+  animation: drop 1.5s ease-out forwards;
+}
+
+@keyframes drop {
+  0% { transform: translateY(-200px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.envelope {
+  width: 280px;
+  height: 180px;
+  background: #ff5fa2;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  animation: wiggle 2s infinite;
+}
+
+@keyframes wiggle {
+  0%,100% { transform: rotate(0deg); }
+  50% { transform: rotate(2deg); }
+}
+
+.flap {
+  width: 0;
+  height: 0;
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-bottom: 90px solid #ff3f8e;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top;
+  transition: 1s;
+}
+
+.open .flap {
+  transform: rotateX(180deg);
+}
+
+/* ================= SLIDE ================= */
+.slides {
+  display: flex;
+  width: 300%;
+  height: 100%;
+  position: absolute;
+  left: 100%;
+  transition: left 1s ease;
+}
+
+.slide {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  text-align: center;
+  padding: 30px;
+}
+
+.slide:nth-child(1) { background: #ffd6e8; }
+.slide:nth-child(2) { background: #ffc0da; }
+.slide:nth-child(3) { background: #ffb6d5; }
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background: hotpink;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* ================= HIDDEN ================= */
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎶 Musik -->
+<audio id="musik">
+  <source src="ramein.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 💌 Amplop -->
+<div class="envelope-container" id="amplop">
+  <div class="envelope" onclick="buka()">
+    <div class="flap"></div>
+  </div>
+  <p style="text-align:center;color:#fff;">Klik amplop 💖</p>
+</div>
+
+<!-- 📜 Slide Ucapan -->
+<div class="slides hidden" id="slides">
+  <div class="slide">
+    🎉 Happy Birthday 🎉<br>
+    Semoga hari ini penuh senyum 😄
+    <br><button onclick="nextSlide()">Lanjut ➡️</button>
+  </div>
+  <div class="slide">
+    💖 Semoga selalu sehat<br>
+    dan semua impian tercapai ✨
+    <br><button onclick="nextSlide()">Lanjut ➡️</button>
+  </div>
+  <div class="slide">
+    🎂 Jangan lupa bahagia hari ini!<br>
+    Kamu itu spesial 💕
+  </div>
+</div>
+
+<script>
+let slideIndex = 0;
+let sudahBuka = false;
+
+function buka() {
+  if (sudahBuka) return;
+  sudahBuka = true;
+
+  document.querySelector(".envelope").classList.add("open");
+  document.getElementById("musik").play();
+
+  setTimeout(() => {
+    document.getElementById("amplop").classList.add("hidden");
+    document.getElementById("slides").classList.remove("hidden");
+    document.getElementById("slides").style.left = "0";
+  }, 1200);
+}
+
+function nextSlide() {
+  slideIndex++;
+  document.getElementById("slides").style.left = `-${slideIndex * 100}vw`;
+}
+</script>
+
+</body>
+</html>
