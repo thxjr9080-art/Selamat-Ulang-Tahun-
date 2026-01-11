@@ -6,157 +6,183 @@
 <title>Happy Birthday 💌</title>
 
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: linear-gradient(135deg, #ffb6d5, #ffd6e8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Comic Sans MS", cursive;
-  overflow: hidden;
+body{
+  margin:0;
+  height:100vh;
+  background:linear-gradient(135deg,#ffb6d5,#ffd6e8);
+  font-family:"Comic Sans MS",cursive;
+  overflow:hidden;
 }
 
-/* ================= AMPL0P ================= */
-.envelope-container {
-  position: absolute;
-  animation: drop 1.5s ease-out forwards;
+/* ===== STIKER MELAYANG ===== */
+.sticker{
+  position:absolute;
+  font-size:38px;
+  animation:float 6s infinite ease-in-out;
+  opacity:.8;
+}
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-20px)}
+  100%{transform:translateY(0)}
 }
 
-@keyframes drop {
-  0% { transform: translateY(-200px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+/* ===== AMPL0P ===== */
+.envelope-box{
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  animation:drop 1.2s ease-out forwards;
+}
+@keyframes drop{
+  from{transform:translateY(-200px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+.envelope{
+  width:300px;
+  height:190px;
+  background:#ff5fa2;
+  border-radius:15px;
+  position:relative;
+  cursor:pointer;
+  animation:wiggle 2s infinite;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+@keyframes wiggle{
+  0%,100%{transform:rotate(0)}
+  50%{transform:rotate(2deg)}
+}
+.flap{
+  position:absolute;
+  top:0;
+  left:0;
+  width:0;
+  height:0;
+  border-left:150px solid transparent;
+  border-right:150px solid transparent;
+  border-bottom:95px solid #ff3f8e;
+  transform-origin:top;
+  transition:1s;
+}
+.envelope.open .flap{
+  transform:rotateX(180deg);
+}
+.envelope-text{
+  position:absolute;
+  bottom:15px;
+  width:100%;
+  text-align:center;
+  color:white;
 }
 
-.envelope {
-  width: 280px;
-  height: 180px;
-  background: #ff5fa2;
-  border-radius: 12px;
-  position: relative;
-  cursor: pointer;
-  animation: wiggle 2s infinite;
+/* ===== SLIDE ===== */
+.slides{
+  position:absolute;
+  inset:0;
+  display:flex;
+  transition:1s;
+}
+.slide{
+  min-width:100vw;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.frame{
+  background:white;
+  border:6px dashed hotpink;
+  border-radius:30px;
+  padding:30px;
+  text-align:center;
+  font-size:22px;
+  max-width:320px;
+  box-shadow:0 8px 20px rgba(0,0,0,.2);
+}
+button{
+  margin-top:20px;
+  padding:10px 25px;
+  border:none;
+  border-radius:20px;
+  background:hotpink;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
 }
 
-@keyframes wiggle {
-  0%,100% { transform: rotate(0deg); }
-  50% { transform: rotate(2deg); }
-}
-
-.flap {
-  width: 0;
-  height: 0;
-  border-left: 140px solid transparent;
-  border-right: 140px solid transparent;
-  border-bottom: 90px solid #ff3f8e;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform-origin: top;
-  transition: 1s;
-}
-
-.open .flap {
-  transform: rotateX(180deg);
-}
-
-/* ================= SLIDE ================= */
-.slides {
-  display: flex;
-  width: 300%;
-  height: 100%;
-  position: absolute;
-  left: 100%;
-  transition: left 1s ease;
-}
-
-.slide {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  text-align: center;
-  padding: 30px;
-}
-
-.slide:nth-child(1) { background: #ffd6e8; }
-.slide:nth-child(2) { background: #ffc0da; }
-.slide:nth-child(3) { background: #ffb6d5; }
-
-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  background: hotpink;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-/* ================= HIDDEN ================= */
-.hidden {
-  display: none;
-}
+/* ===== SEMBUNYI ===== */
+.hidden{display:none}
 </style>
 </head>
 
 <body>
 
-<!-- 🎶 Musik -->
+<!-- 🎶 MUSIK -->
 <audio id="musik">
   <source src="ramein.mp3" type="audio/mpeg">
 </audio>
 
-<!-- 💌 Amplop -->
-<div class="envelope-container" id="amplop">
-  <div class="envelope" onclick="buka()">
+<!-- 💖 STIKER -->
+<div class="sticker" style="top:10%;left:10%">🎂</div>
+<div class="sticker" style="top:20%;right:15%">💖</div>
+<div class="sticker" style="bottom:15%;left:20%">⭐</div>
+
+<!-- 💌 AMPL0P -->
+<div class="envelope-box" id="amplopBox">
+  <div class="envelope" onclick="bukaAmplop()">
     <div class="flap"></div>
+    <div class="envelope-text">Klik amplop 💌</div>
   </div>
-  <p style="text-align:center;color:#fff;">Klik amplop 💖</p>
 </div>
 
-<!-- 📜 Slide Ucapan -->
+<!-- 📜 SLIDE UCAPAN -->
 <div class="slides hidden" id="slides">
   <div class="slide">
-    🎉 Happy Birthday 🎉<br>
-    Semoga hari ini penuh senyum 😄
-    <br><button onclick="nextSlide()">Lanjut ➡️</button>
+    <div class="frame">
+      🎉 Happy Birthday 🎉<br>
+      Semoga hari ini penuh senyum 😄
+      <br><button onclick="nextSlide()">Lanjut ➡️</button>
+    </div>
   </div>
+
   <div class="slide">
-    💖 Semoga selalu sehat<br>
-    dan semua impian tercapai ✨
-    <br><button onclick="nextSlide()">Lanjut ➡️</button>
+    <div class="frame">
+      💖 Semoga selalu sehat<br>
+      dan semua impian tercapai ✨
+      <br><button onclick="nextSlide()">Lanjut ➡️</button>
+    </div>
   </div>
+
   <div class="slide">
-    🎂 Jangan lupa bahagia hari ini!<br>
-    Kamu itu spesial 💕
+    <div class="frame">
+      🎂 Jangan lupa bahagia hari ini<br>
+      Kamu itu spesial 💕
+    </div>
   </div>
 </div>
 
 <script>
-let slideIndex = 0;
-let sudahBuka = false;
+let index=0;
+let sudah=false;
 
-function buka() {
-  if (sudahBuka) return;
-  sudahBuka = true;
+function bukaAmplop(){
+  if(sudah) return;
+  sudah=true;
 
   document.querySelector(".envelope").classList.add("open");
   document.getElementById("musik").play();
 
-  setTimeout(() => {
-    document.getElementById("amplop").classList.add("hidden");
+  setTimeout(()=>{
+    document.getElementById("amplopBox").classList.add("hidden");
     document.getElementById("slides").classList.remove("hidden");
-    document.getElementById("slides").style.left = "0";
-  }, 1200);
+  },1200);
 }
 
-function nextSlide() {
-  slideIndex++;
-  document.getElementById("slides").style.left = `-${slideIndex * 100}vw`;
+function nextSlide(){
+  index++;
+  document.getElementById("slides").style.transform =
+    `translateX(-${index*100}vw)`;
 }
 </script>
 
